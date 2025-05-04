@@ -1,17 +1,17 @@
-# VLMmerging
+# VLM_Merging
 
 This repository contains the official implementation for the ICML 2025 paper "Bring Reason to Vision: Understanding Perception and Reasoning through Model Merging".
 
 ## Overview
 
-VLMmerging explores techniques for merging large vision-language models (VLMs) to enhance their capabilities in perception and reasoning tasks. The project leverages model merging strategies to combine the strengths of different VLMs, resulting in improved performance across various benchmarks.
+VLM_Merging explores techniques for merging large vision-language models (VLMs) to enhance their capabilities in perception and reasoning tasks. The project leverages model merging strategies to combine the strengths of different VLMs and Math LLMs, resulting in improved performance across various benchmarks.
 
 ## Key Features
 
 - Implementation of various model merging techniques including:
   - Base merging
   - Layer swapping
-  - Task vector merging (TIES)
+  - TIES merging
   - DARE-TIES and DARE-linear merging
 
 - Evaluation framework using [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) for comprehensive assessment of merged models
