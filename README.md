@@ -1,4 +1,4 @@
-# VLM_Merging
+# VLM Merging
 
 This repository contains the official implementation for the ICML 2025 paper "Bring Reason to Vision: Understanding Perception and Reasoning through Model Merging".
 
