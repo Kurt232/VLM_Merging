@@ -1,6 +1,6 @@
 # VLM Merging
 
-This repository contains the official implementation for the ICML 2025 paper "Bring Reason to Vision: Understanding Perception and Reasoning through Model Merging".
+This repository contains the official implementation for the ICML 2025 paper: [Bring Reason to Vision: Understanding Perception and Reasoning through Model Merging](https://arxiv.org/abs/2505.05464).
 
 ## Overview
 
@@ -77,6 +77,17 @@ The repository integrates with VLMEvalKit for comprehensive evaluation of merged
 ## Citation
 
 If you find this work helpful, please consider citing our paper.
+```
+@misc{chen2025bringreason,
+      title={Bring Reason to Vision: Understanding Perception and Reasoning through Model Merging}, 
+      author={Shiqi Chen and Jinghan Zhang and Tongyao Zhu and Wei Liu and Siyang Gao and Miao Xiong and Manling Li and Junxian He},
+      year={2025},
+      eprint={2505.05464},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2505.05464}, 
+}
+```
 
 ## License
 
