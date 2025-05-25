@@ -38,11 +38,11 @@ pip install -e .
 
 ### Model Merging
 
-The main merging functionality is provided in `merge.py`. You can merge two models using the following command:
+The main merging functionality is provided in `merge.py`. You can merge LLaVA-1.6 and Dart-Math (both based on LLaMA3) using the following command:
 
 ```bash
-python merge.py --model1_path /path/to/model1 \
---model2_path /path/to/model2 \
+python merge.py --model1_path llava-hf/llama3-llava-next-8b-hf \
+--model2_path hkust-nlp/dart-math-llama3-8b-prop2diff \
 --output_dir /path/to/output \
 --alpha 0.5 \
 --mode base
