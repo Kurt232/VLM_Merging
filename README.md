@@ -68,6 +68,7 @@ python merge.py --model1_path llava-hf/llama3-llava-next-8b-hf \
 
 Example scripts for model merging and evaluation are provided in:
 - `scripts/merge/example.sh`: Contains examples of different merging strategies
+- [UPDATE] `scripts/merge/example_details.sh`: Contains full merging experiments for reproducing the paper
 - `scripts/eval/evaluate_vlm.sh`: Shows how to evaluate merged models on various benchmarks
 
 ## Evaluation
