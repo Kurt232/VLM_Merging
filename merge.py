@@ -45,16 +45,16 @@ def merge_models(model1_path, model2_path, output_dir, alpha, mode='base', base_
             use_flash_attention_2=False,
             trust_remote_code=True,
             # device_map=create_other_model_device_map(model1_path)
-        ).language_model.model
+        ).language_model
         model2 = AutoModelForCausalLM.from_pretrained(
             model2_path,
             torch_dtype=torch.float16,
             low_cpu_mem_usage=True,
             use_flash_attention_2=False,
             # device_map=create_other_model_device_map(model2_path)
-        ).model
+        )
         # pdb.set_trace()
-        excluded_keys = {'embed_tokens.weight', 'lm_head.weight'}
+        excluded_keys = {'model.embed_tokens.weight', 'lm_head.weight'}
 
     elif 'idefics' in model1_path:
         model1 = AutoModelForVision2Seq.from_pretrained(
@@ -107,7 +107,9 @@ def merge_models(model1_path, model2_path, output_dir, alpha, mode='base', base_
             torch_dtype=torch.float16,
             low_cpu_mem_usage=True,
             use_flash_attention_2=False,
-        ).model
+        )
+        if 'llava' not in model1_path:
+            basemodel=basemodel.model
         state_dict_base = basemodel.state_dict()
         del basemodel
         taskvec1 = {
