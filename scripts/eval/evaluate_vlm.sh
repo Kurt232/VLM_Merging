@@ -24,7 +24,7 @@ eval "$(conda shell.bash hook)"
 conda activate your_environment
 
 # Count available GPUs
-export GPU=$(nvidia-smi --list-gpus | wc -l)
+export GPU=$(echo $CUDA_VISIBLE_DEVICES | tr ',' '\n' | wc -l)
 echo "Detected ${GPU} GPUs for distributed training"
 
 # Define evaluation settings
