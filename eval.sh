@@ -40,13 +40,13 @@ echo "Starting evaluation of VLM models..."
 
 
 for model in "${models[@]}"; do
-    # # First evaluate base models without merging
-    # echo "Evaluating base model: ${model}"
-    # torchrun --nproc-per-node=${GPU} --master-port=12345 VLMEvalKit/run.py \
-    #     --data "${tasks[@]}" \
-    #     --model "$model" \
-    #     --verbose \
-    #     --work-dir "${OUTPUT_DIR}/base_models"
+    # First evaluate base models without merging
+    echo "Evaluating base model: ${model}"
+    torchrun --nproc-per-node=${GPU} --master-port=12345 VLMEvalKit/run.py \
+        --data "${tasks[@]}" \
+        --model "$model" \
+        --verbose \
+        --work-dir "${OUTPUT_DIR}/base_models"
     
     # Then evaluate with merged weights
     for merge in "${merges[@]}"; do

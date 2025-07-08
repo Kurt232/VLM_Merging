@@ -48,15 +48,15 @@ for model in "${models[@]}"; do
         --verbose \
         --work-dir "${OUTPUT_DIR}/base_models"
     
-    # # Then evaluate with merged weights
-    # for merge in "${merges[@]}"; do
-    #     echo "Evaluating merged model: ${model} with weights: ${merge}"
-    #     torchrun --nproc-per-node=${GPU} --master-port=12545 VLMEvalKit/run.py \
-    #         --data "${tasks[@]}" \
-    #         --model "$model" \
-    #         --verbose \
-    #         --merge_model "$merge" \
-    #         --work-dir "${OUTPUT_DIR}/merged_models"
+    # Then evaluate with merged weights
+    for merge in "${merges[@]}"; do
+        echo "Evaluating merged model: ${model} with weights: ${merge}"
+        torchrun --nproc-per-node=${GPU} --master-port=12545 VLMEvalKit/run.py \
+            --data "${tasks[@]}" \
+            --model "$model" \
+            --verbose \
+            --merge_model "$merge" \
+            --work-dir "${OUTPUT_DIR}/merged_models"
     done
 done
 
