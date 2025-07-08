@@ -6,8 +6,8 @@ from transformers import (
     LlavaNextForConditionalGeneration,
     AutoModelForCausalLM,
     AutoModel,
-    AutoModelForVision2Seq,
-    Qwen2VLForConditionalGeneration,
+    # AutoModelForVision2Seq,
+    # Qwen2VLForConditionalGeneration,
     # Qwen2_5_VLForConditionalGeneration
 )
 from huggingface_hub import login
@@ -42,7 +42,7 @@ def merge_models(model1_path, model2_path, output_dir, alpha, mode='base', base_
             model1_path,
             torch_dtype=torch.float16,
             low_cpu_mem_usage=True,
-            use_flash_attention_2=False,
+            # use_flash_attention_2=False,
             trust_remote_code=True,
             # device_map=create_other_model_device_map(model1_path)
         ).language_model
@@ -50,7 +50,7 @@ def merge_models(model1_path, model2_path, output_dir, alpha, mode='base', base_
             model2_path,
             torch_dtype=torch.float16,
             low_cpu_mem_usage=True,
-            use_flash_attention_2=False,
+            # use_flash_attention_2=False,
             # device_map=create_other_model_device_map(model2_path)
         )
         # pdb.set_trace()

@@ -27,7 +27,7 @@ conda create -n vlm_merging python=3.10 -y
 
 conda activate vlm_merging
 
-pip install -r requirements.txt
+pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 
 cd VLMEvalKit
 
