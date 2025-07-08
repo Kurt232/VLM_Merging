@@ -128,6 +128,7 @@ def MathVista_acc(result_file):
     hit = defaultdict(lambda: 0)
     lt = len(data)
     skill_list = []
+    ans = {}
     for i in range(lt):
         item = data.iloc[i]
         cate = item['task']
@@ -151,6 +152,9 @@ def MathVista_acc(result_file):
             hit[cate] += 1
             for skill in skills:
                 hit[skill] += 1
+            ans[item["index"]] = True
+        else:
+            ans[item["index"]] = False
 
     res = defaultdict(list)
     for k in tot.keys():
@@ -161,4 +165,7 @@ def MathVista_acc(result_file):
         res['prefetch_rate'].append(fetch[k] / tot[k] * 100)
         res['acc'].append(hit[k] / tot[k] * 100)
     res = pd.DataFrame(res)
+
+    data['score'] = [ans[idx] for idx in data['index']]
+    dump(data, result_file.replace(".xlsx", "_score.xlsx"))
     return res
