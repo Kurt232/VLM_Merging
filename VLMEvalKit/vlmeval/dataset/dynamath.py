@@ -10,12 +10,14 @@ import math
 import os
 import os.path as osp
 import argparse
+import logging
 
 from .image_base import ImageBaseDataset
 from .utils import build_judge
 from ..utils import track_progress_rich
 from ..smp import load, dump, d2df, toliststr
 
+logger = logging.getLogger(__name__)
 
 def preprocess(str1):
     if 0 <= str1.find("{") < str1.rfind("}"):
@@ -140,6 +142,20 @@ Example of expected JSON response format:
         "short answer": "[Concise Answer]"
     }
     TEXT_EXAMPLE = json.dumps(EXAMPLE, indent=4)
+
+    def post_build(self, dataset):
+        """
+        override this method to sample the dataset
+        """
+        # self.data is a pandas DataFrame
+        # to sample 50 id in [0, 501)
+        ori_len = len(self.data)
+        indices = np.random.choice(501, size=50, replace=False)
+
+        # Filter self.data (assuming 'index' is a column)
+        self.data = self.data[self.data['qid'].isin(indices)]
+
+        logger.warning(f"Sampled {len(self.data)} out of {ori_len} records in {dataset} dataset.")
 
     # Given one data record, return the built prompt (a multi-modal message), can override
     def build_prompt(self, line):
