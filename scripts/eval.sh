@@ -2,21 +2,28 @@
 set -e
 
 # Define evaluation settings
-OUTPUT_DIR="./eval1"
-# MERGED_MODELS_DIR="models/linear_merge"
-MERGED_MODELS_DIR="models/llava_dart_uniform"
+TAG=$1
+
+echo "Starting evaluation $TAG ..."
+
+OUTPUT_DIR="./eval/$TAG"
+MERGED_MODELS_DIR="models/$TAG"
+LOG_DIR="${OUTPUT_DIR}/logs"
+
+mkdir "$OUTPUT_DIR" # Create output directory if it doesn't exist
+mkdir "$LOG_DIR" -p
 
 # Define tasks and models as lists
 tasks=(
-    # "MathVista_MINI"
-    # "MathVerse_MINI_Vision_Only"
-    # "MathVerse_MINI_Vision_Dominant"
-    # "MathVerse_MINI_Vision_Intensive"
-    # "MathVerse_MINI_Text_Lite"
-    # "MathVerse_MINI_Text_Dominant"
-    # "MathVerse_MINI_Text_Intensive"
-    # "MathVision_MINI"
-    # "MMStar"
+    "MathVista_MINI"
+    "MathVerse_MINI_Vision_Only"
+    "MathVerse_MINI_Vision_Dominant"
+    "MathVerse_MINI_Vision_Intensive"
+    "MathVerse_MINI_Text_Lite"
+    "MathVerse_MINI_Text_Dominant"
+    "MathVerse_MINI_Text_Intensive"
+    "MathVision_MINI"
+    "MMStar"
     "DynaMath"
 )
     # "MM-Math"
@@ -35,23 +42,22 @@ echo "Starting evaluation of VLM models..."
 for model in "${models[@]}"; do
     # First evaluate base models without merging
     echo "Evaluating base model: ${model}"
-    CUDA_VISIBLE_DEVICES="0" python VLMEvalKit/run.py \
+    python VLMEvalKit/run.py \
         --data "${tasks[@]}" \
         --model "$model" \
         --verbose \
-        --work-dir "${OUTPUT_DIR}/base_models" > test.log 2>&1 &
+        --work-dir "${OUTPUT_DIR}/base_models" > "${LOG_DIR}/${model}_base.log"
     
     # Then evaluate with merged weights
     for merge in "${merges[@]}"; do
         echo "Evaluating merged model: ${model} with weights: ${merge}"
-        CUDA_VISIBLE_DEVICES="1" python VLMEvalKit/run.py \
+        python VLMEvalKit/run.py \
             --data "${tasks[@]}" \
             --model "$model" \
             --verbose \
             --merge_model "$merge" \
-            --work-dir "${OUTPUT_DIR}/merged_models"
+            --work-dir "${OUTPUT_DIR}/merged_models" > "${LOG_DIR}/${model}_merged.log"
     done
-    wait
 done
 
 echo "All evaluation tasks completed successfully!" 
